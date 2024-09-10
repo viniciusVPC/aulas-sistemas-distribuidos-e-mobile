@@ -1,5 +1,6 @@
 package client;
 
+import java.io.PrintStream;
 import java.net.Socket;
 
 public class Client {
@@ -7,6 +8,7 @@ public class Client {
         Socket socket = null;
         final String IP = "127.0.0.1";
         final int PORT = 9876;
+        PrintStream printStream = null;
 
         // criação do socket e pedido de conexão
         try {
@@ -17,6 +19,12 @@ public class Client {
         }
 
         // comunicação
+        try {
+            printStream = new PrintStream(socket.getOutputStream());
+            printStream.println("Hello world!");
+        } catch (Exception e) {
+            System.out.println("Erro na comunicação: " + e.getMessage());
+        }
 
         // desconexão
         try {
